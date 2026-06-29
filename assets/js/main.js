@@ -1,46 +1,35 @@
-/* =========================
-KADIN MIMIKA - MAIN JS
-========================= */
-
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", function () {
 
 const header=document.getElementById("header");
 const menu=document.getElementById("mobile-menu");
 const toggle=document.getElementById("menu-toggle");
 
 
-/* HEADER SCROLL */
-
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll",function(){
 
 if(window.scrollY>80){
-
 header.classList.add("active");
-
 }else{
-
 header.classList.remove("active");
-
 }
 
 });
 
 
-/* MOBILE MENU */
-
 if(toggle&&menu){
 
-toggle.addEventListener("click",()=>{
+toggle.addEventListener("click",function(){
 
 menu.classList.toggle("show");
 
 });
 
-document
-.querySelectorAll("#mobile-menu a")
-.forEach(link=>{
+const links=
+document.querySelectorAll("#mobile-menu a");
 
-link.addEventListener("click",()=>{
+links.forEach(function(link){
+
+link.addEventListener("click",function(){
 
 menu.classList.remove("show");
 
@@ -51,16 +40,16 @@ menu.classList.remove("show");
 }
 
 
-/* SMOOTH SCROLL */
+const anchors=
+document.querySelectorAll('a[href^="#"]');
 
-document
-.querySelectorAll('a[href^="#"]')
-.forEach(link=>{
+anchors.forEach(function(link){
 
-link.addEventListener("click",(e)=>{
+link.addEventListener("click",function(e){
 
-const target=document.querySelector(
-link.getAttribute("href")
+const target=
+document.querySelector(
+this.getAttribute("href")
 );
 
 if(target){
@@ -84,150 +73,45 @@ behavior:
 });
 
 
-/* CARD ANIMATION */
-
-const cards=
-document.querySelectorAll(".card");
-
-if(cards.length){
-
-const observer=
-new IntersectionObserver(
-
-(entries)=>{
-
-entries.forEach(entry=>{
-
-if(entry.isIntersecting){
-
-entry.target.style.opacity="1";
-
-entry.target.style.transform=
-"translateY(0)";
-
-}
-
-});
-
-},
-
-{
-
-threshold:.2
-
-}
-
-);
-
-cards.forEach(card=>{
-
-card.style.opacity="0";
-
-card.style.transform=
-"translateY(40px)";
-
-card.style.transition=
-".6s";
-
-observer.observe(card);
-
-});
-
-}
-
-
-/* STATS */
-
-const numbers=
-document.querySelectorAll(".stats h2");
-
-numbers.forEach(el=>{
-
-const text=
-el.innerText;
-
-const target=
-parseInt(text);
-
-if(isNaN(target)) return;
-
-let current=0;
-
-const timer=
-setInterval(()=>{
-
-current+=
-Math.ceil(target/30);
-
-if(current>=target){
-
-current=target;
-
-clearInterval(timer);
-
-}
-
-el.innerText=
-current+"+";
-
-},40);
-
-});
-
-
-/* TOP BUTTON */
-
 const topButton=
 document.createElement("button");
 
 topButton.innerHTML="↑";
 
 topButton.style.cssText=`
-
 position:fixed;
 right:20px;
 bottom:20px;
-
 width:55px;
 height:55px;
-
 border:none;
-
 border-radius:50%;
-
 background:#D4A017;
-
 color:#fff;
-
-font-size:24px;
-
-cursor:pointer;
-
+font-size:22px;
 display:none;
-
+cursor:pointer;
 z-index:99999;
-
 `;
 
 document.body.appendChild(topButton);
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll",function(){
 
-topButton.style.display=
+if(window.scrollY>400){
 
-window.scrollY>400
+topButton.style.display="block";
 
-?
+}else{
 
-"block"
+topButton.style.display="none";
 
-:
-
-"none";
+}
 
 });
 
-topButton.addEventListener("click",()=>{
+
+topButton.addEventListener("click",function(){
 
 window.scrollTo({
 
